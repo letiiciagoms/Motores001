@@ -7,44 +7,53 @@ public class Player : MonoBehaviour
 {
     public int velocidade = 10;
     public int forcaPulo = 7;
-    private Rigidbody rb;
-
     public bool noChao;
 
+    private Rigidbody rb;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
-        TryGetComponent (out rb);
+        Debug.Log("START");
+        TryGetComponent(out rb);
+        
     }
 
-    void OnCollisionEnter (Collision col)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (col.gameObject.tag == "Chão")
+        if (!noChao && collision.gameObject.tag == "Chão")
         {
             noChao = true;
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        Debug.Log("UPDATE");
+        float h = Input.GetAxis("Horizontal"); //-1 esquerda,0 nada, 1 direita
+        float v = Input.GetAxis("Vertical");// -1 pra tras, 0 nada, 1 pra frente
 
-        Vector3 direção = new Vector3(h, 0, v);
-        rb.AddForce(direcao * Time.deltaTime, ForceMode.Impulse);
+        Vector3 direcao = new Vector3(h, 0, v);
+        rb.AddForce(direcao * velocidade * Time.deltaTime, ForceMode.Impulse);
 
         if (Input.GetKeyDown(KeyCode.Space) && noChao)
         {
-            rb.AddForce(Vector3.up * forcaPulo, FoceMode.Impulse);
+            //pulo
+           
+
+            rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
             noChao = false;
         }
 
-        if (tranform.position.y <= -10)
+
+
+        if (transform.position.y <= -10)
         {
-            SceneManagement.LoadScene(SceneManager.GetActiveScene().name);
+            //jogador caiu
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        
     }
 }
