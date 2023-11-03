@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Moeda : MonoBehaviour
 {
-    public int velocidadedeGiro = 100;
+    public int velocidadeGiro = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,15 +13,16 @@ public class Moeda : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            Destroy(gameObject);        
+            
+            Destroy(gameObject);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.forward, velocidadedeGiro * Time.deltaTime);
-        
+        transform.Rotate(Vector3.up * velocidadeGiro * Time.deltaTime, Space.World);
+
     }
 }
