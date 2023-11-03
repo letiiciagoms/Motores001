@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("START");
         TryGetComponent(out rb);
-        
+        TryGetComponent(out source);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         {
             //pulo
            
+            source.Play();
 
             rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
             noChao = false;
