@@ -24,12 +24,15 @@ public class GameManager : MonoBehaviour
     {
         restantes -= valor;
         hud.text = $"Moedas restantes: {restantes}";
+        source.PlayOneShot(clipMoeda);
 
         if (restantes <= 0)
         {
             //ganhou o jogo
-            msgVitoria.text = "Parabéns!";
-           
+            msgVitoria.text = "PARABÉNS!:)";
+            source.Stop();
+            source.PlayOneShot(clipVitoria);
+
         }
     }
 
